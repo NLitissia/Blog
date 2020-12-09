@@ -4,9 +4,11 @@ namespace App\Entity;
 
 use App\Repository\PubRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=PubRepository::class)
+ * 
  */
 class Pub
 {
@@ -19,15 +21,18 @@ class Pub
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(min=10, max=255,minMessage="La taille de votre titre doit etre entre 10 caractéres et 255 caractéres")
      */
     private $titre;
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\Length(min=10)
      */
     private $contenu;
 
     /**
+     * @Assert\Url()
      * @ORM\Column(type="string", length=255)
      */
     private $image;

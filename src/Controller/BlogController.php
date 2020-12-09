@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Pub;
+use App\Form\PubType;
 use App\Repository\PubRepository;
 use DateTime;
 use Doctrine\Persistence\ManagerRegistry;
@@ -39,36 +40,41 @@ class BlogController extends AbstractController
      * @Route("/blog/new", name="blog_create")
      */
 
-    public function create(Request $request,   ManagerRegistry $manager){
-        $pub = new Pub();
-        $form = $this->createFormBuilder($pub)
-                     ->add('titre',TextType::class,[
-                         'attr' => [
-                             'placeholder' => "Titre de la publication",
-                             
-                         ]
-                     ])
-                     ->add('contenu', TextareaType::class,[
-                         'attr' => [
-                             'placeholder' => "Contenu de la publication"
-                         ]
-                     ])
-                     ->add('image',TextType::class,[
-                        'attr' => [
-                            'placeholder' => "image de la publication",
-                            
-                        ]
-                    ])
-                    ->add('Enregistrer', SubmitType::class,[
-                        'attr' => [
-                            'class' => "BtnSave"
-                            
-                        ]
-                       
-                    ])
-                     ->getForm();
+    public function form(Request $request,   ManagerRegistry $manager){
 
-                $form->handleRequest($request);   
+        $pub = new Pub();
+    
+        // $form = $this->createFormBuilder($pub)
+        //              ->add('titre',TextType::class,[
+        //                  'attr' => [
+        //                      'placeholder' => "Titre de la publication",
+                             
+        //                  ]
+        //              ])
+        //              ->add('contenu', TextareaType::class,[
+        //                  'attr' => [
+        //                      'placeholder' => "Contenu de la publication"
+        //                  ]
+        //              ])
+        //              ->add('image',TextType::class,[
+        //                 'attr' => [
+        //                     'placeholder' => "image de la publication",
+                            
+        //                 ]
+        //             ])
+        //             ->add('Enregistrer', SubmitType::class,[
+        //                 'attr' => [
+        //                     'class' => "BtnSave"
+                            
+        //                 ]
+                       
+        //             ])
+        //              ->getForm();
+
+        $form = $this->createForm(PubType::class,$pub);
+
+                $form->handleRequest($request);  
+                dump($request); 
                 if($form->isSubmitted() && $form->isValid()) {
                     $pub->setCreatedAt(new \DateTime());
                     $em = $manager->getManager();
