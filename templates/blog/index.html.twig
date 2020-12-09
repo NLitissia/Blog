@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello BlogController!
+{% endblock %}
+
+{% block body %}
+	<section class="publication">
+	{%for pub in pubs%}
+		<publication>
+			<h2>
+				{{ pub.titre }}</h2>
+			<div class="content">
+				<img src ="{{ pub.image }}" alt="">
+				<p> 
+				   {{pub.contenu}}
+					</p>
+				<a href="{{ path('blog_show',{'id': pub.id}) }}" class="btn btn-primary">Lire la suite
+				</a>
+			</div>
+		</publication>
+	{% endfor %}	
+	</section>
+{% endblock %}
