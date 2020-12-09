@@ -11,8 +11,9 @@ class PubFixture extends Fixture
     {
        for($i=0; $i <= 10; $i++){
            $pub = new Pub();
-           $pub->setTitre("titre de la Pubb......")
-               ->setContenu("contenu de la Pub, le contenu le contenu")
+           $pub->setTitre("Publication - " .($i+1))
+               ->setContenu("Un paragraphe est une section de texte en prose vouée au développement d'un point particulier souvent au moyen de plusieurs phrases, dans la continuité du précédent et du suivant. Sur le plan typographique, 
+               le début d'un paragraphe est marqué par un léger renfoncement ou par un saut de ligne")
                ->setImage("http://placehold.it/350x150")
                ->setCreatedAt(new \DateTime());
             $manager->persist($pub);   
