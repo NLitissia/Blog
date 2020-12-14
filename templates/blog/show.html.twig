@@ -1,16 +1,33 @@
 {% extends "base.html.twig" %}
 {% block body %}
 
-<publication>
+        <publication>
 			<h2>
+			
 				{{ pub.titre }}</h2>
-			<div class="content">
-				<img src ="http://placehold.it/350x150" alt="">
-				<p>  {{pub.contenu}} </p>
-                    <hr></hr> 
-                    
-				
+			<div class="metadata">
+			    Ecrit le {{ pub.createdAt | date('d/m/Y')	}} à {{ pub.createdAt | date('H:i')	}} dand la categorie {{ pub.category.titre }}
+			 </div>	
+			 <hr></hr> 
+			<div class="contenu"> 
+				<img src ="{{ pub.image }}" alt="">
+				  {{pub.contenu | raw }} 
+                    	
 			</div>
 		</publication>
+		<srction class="commentaire">
+		{% for comment in pub.comments%}
+		  <div class="comment">
+		  <div class="row">
+		    <div class="col-4">
+			  {{ comment.author }} (<small> {{ comment.createdAt| date('d/m/Y')	 }}</small>)
+			</div>
+			<div class="col">
+			 {{ comment.contenu | raw}}
+			</div>
+		   </div>
+		   </div>
+		   {% endfor %}
+		</section>
 
 {% endblock %}

@@ -92,6 +92,7 @@ class BlogController extends AbstractController
      * @Route("/blog/{id}" , name="blog_show")
      */
     public function show(Pub $pub){
+        //dump($pub->getComments()).die();
         return $this->render('blog/show.html.twig',[
             'pub' => $pub
         ]);

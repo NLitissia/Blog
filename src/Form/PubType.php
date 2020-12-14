@@ -2,7 +2,9 @@
 
 namespace App\Form;
 
+use App\Entity\Category;
 use App\Entity\Pub;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -15,6 +17,11 @@ class PubType extends AbstractType
             ->add('titre')
             ->add('contenu')
             ->add('image')
+            ->add('category', EntityType::class,[
+                    'class' => Category::class,
+                    'choice_label' => 'Titre',
+
+            ])
            // ->add('createdAt')
         ;
     }
