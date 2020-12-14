@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\Comment;
 use App\Entity\Pub;
+use App\Form\CommentType;
 use App\Form\PubType;
 use App\Repository\PubRepository;
 use DateTime;
@@ -91,10 +93,27 @@ class BlogController extends AbstractController
     /**
      * @Route("/blog/{id}" , name="blog_show")
      */
-    public function show(Pub $pub){
+    public function show(Pub $pub,Request $request,ManagerRegistry $manager){
         //dump($pub->getComments()).die();
+        $comment = new Comment();
+        $form=$this->createForm(CommentType::class,$comment);
+
+        $form->handleRequest($request);
+        $em = $manager->getManager();
+        if($form->isSubmitted() && $form->isValid()) {
+             $comment->setCreatedAt(new \DateTime())
+                     ->setRelation($pub);
+               $em->persist($comment);
+               $em->flush();    
+               
+               return  $this->redirectToRoute('blog_show',[
+                   'id' => $pub->getId()
+               ]);
+
+        }
         return $this->render('blog/show.html.twig',[
-            'pub' => $pub
+            'pub' => $pub,
+            'commentForm' => $form->createView()
         ]);
     }    
 

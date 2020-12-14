@@ -28,6 +28,15 @@
 		   </div>
 		   </div>
 		   {% endfor %}
+            {% if app.user %}	
+		   {{ form_start(commentForm) }}
+		   {{ form_row(commentForm.author, {'attr': {'placeholder': "Votre Nom" }})
+		        }}
+			{{ form_row(commentForm.contenu, {'attr': {'placeholder': "Votre Commentaire" }})
+		        }}	
+			<button type="submit" class="btn btn-primary">Commenter</button>	
+		     {{ form_end(commentForm) }}	
+			{% endif %} 	
 		</section>
 
 {% endblock %}

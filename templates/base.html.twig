@@ -29,6 +29,16 @@
 						<li class="nav-item">
 							<a class="nav-link" href="#">A propos de </a>
 						</li>
+						{% if not app.user %}
+						<li class="nav-item">
+							<a class="nav-link" href="{{ path('login') }}">Connexion </a>
+						</li>
+						{% else %}
+							
+						<li class="nav-item">
+							<a class="nav-link" href="{{ path('logout') }}">Déconnexion </a>
+						</li>
+						{% endif %}
 					</ul>
 				</div>
 			</nav>

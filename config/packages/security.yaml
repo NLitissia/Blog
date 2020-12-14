@@ -1,6 +1,13 @@
 security:
+    encoders: 
+        App\Entity\User:
+            algorithm: bcrypt
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
     providers:
+        in_database: 
+            entity:
+                class: App\Entity\User
+                property: email 
         users_in_memory: { memory: null }
     firewalls:
         dev:
@@ -8,7 +15,14 @@ security:
             security: false
         main:
             anonymous: lazy
-            provider: users_in_memory
+            provider: in_database
+            form_login: 
+                  login_path: login
+                  check_path: login
+            logout: 
+                 path: logout
+                 target: blog
+                       
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#firewalls-authentication
